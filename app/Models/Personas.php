@@ -17,4 +17,9 @@ public function nacionalidad()
 {
     return $this->belongsTo(Nacionalidad::class, 'nacionalidad_id');
 }
+
+public function sacerdotes()
+{
+    return $this->hasMany(Sacerdotes::class, 'personas_id');
+}
 }

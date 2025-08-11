@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('apellido2', 45)->nullable();
             $table->string('email', 100)->unique();
             $table->date('fecha_nacimiento');
+            $table->integer('edad')->nullable();
             $table->string('direccion', 100);
             $table->string('celular', 9);
             $table->boolean('estado')->default(true);

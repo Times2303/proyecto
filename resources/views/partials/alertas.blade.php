@@ -1,5 +1,5 @@
 {{-- Toast Notifier --}}
-<div class="toast-container space-y-4 fixed right-5 bottom-5 z-50"></div>
+<div class="toast-container space-y-4 fixed right-5 bottom-5 z-100"></div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -60,6 +60,14 @@
 
         @if (session('error'))
             showToast('error', 'Error', @json(session('error')));
+        @endif
+
+        @if (session('warning'))
+            showToast('warning', 'Advertencia', @json(session('warning')));
+        @endif
+
+        @if (session('info'))
+            showToast('info', 'Información', @json(session('info')));
         @endif
     });
 </script>

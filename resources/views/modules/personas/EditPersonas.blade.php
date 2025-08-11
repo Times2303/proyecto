@@ -2,6 +2,7 @@
 @vite('resources/js/form.js')
 @section('contenido')
 {{--Form con pasos--}}
+<div class="fixed inset-0 bg-opacity-0 backdrop-blur-sm flex items-center justify-center z-50">
 <div class="container mx-auto p-4 flex justify-center">
     <div class="bg-white rounded-lg shadow-lg p-2 md:p-4 w-4xl">
         <a href="{{ route('personas.index') }}" class="text-blue-500 hover:underline mb-4"><i class="fa-solid fa-arrow-left"></i> Volver</a>
@@ -107,4 +108,6 @@
         </form>
     </div>
 </div>
+</div>
+
 @endsection

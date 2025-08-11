@@ -5,7 +5,6 @@
         <div class="bg-white rounded-bl-2xl rounded-br-2xl">
             <div class="bg-cordes-blue p-0.5"></div>
             <h1 class="text-gray-800 pl-4">Filtrar</h1>
-            <input type="text" name="modo" value="{{ $modo }}" class="hidden">
             <form action="#" method="GET">
                 <input name="buscar" class="bg-gray-100 p-1 mb-2 ml-7 mt-2 w-5/6 rounded" type="text" placeholder="Nombre, Apellido, número">
                 <button class="bg-cordes-blue hover:bg-blue-950 transition-colors duration-200 cursor-pointer text-white px-4 py-1 mb-2 rounded" type="submit">Buscar</button>
@@ -16,7 +15,8 @@
             <div class="bg-cordes-blue p-0.5"></div>
             <h1 class="text-gray-800 pl-2">Crear</h1>
             <div class="flex flex-col items-center">
-                <a href="{{ route('personas.create') }}" class=" bg-cordes-blue hover:bg-blue-950 transition-colors duration-200 cursor-pointer text-white px-4 pb-2 pt-1 m-2 rounded">Agregar Persona</a>
+                <a href="{{ route('sacerdotes.seleccionar') }}" class=" bg-cordes-blue hover:bg-blue-950 transition-colors duration-200 cursor-pointer text-white px-4 pb-2 pt-1 m-2 rounded">
+                    Asignar</a>
             </div>
         </div>
         {{-- Tabla personas --}}
@@ -37,55 +37,50 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse ($personas as $item)
+                        @forelse ($sacerdote as $item)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-2 whitespace-nowrap">
+                            <td class="pl-6 py-2 whitespace-nowrap">
                                 <div class="flex items-center text-center">
                                     <div>
-                                        <div class="text-sm font-medium text-gray-900">{{ $item->num_identificacion }}</div>
-                                        <div class="text-sm text-gray-500">{{ $item->tipos_identificacion->nom_tipo }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ $item->personas->num_identificacion }}</div>
+                                        <div class="text-sm text-gray-500">{{ $item->personas->tipos_identificacion->nom_tipo }}</div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-2 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">{{ $item->nombres }}</td>
-                            <td class="px-2 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">{{ $item->apellido1 }} {{ $item->apellido2 }}</td>
+                            <td class="px-2 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">{{ $item->personas->nombres }}</td>
+                            <td class="px-2 py-2 whitespace-nowrap text-sm font-semibold text-gray-900">{{ $item->personas->apellido1 }} {{ $item->personas->apellido2 }}</td>
                             <td class="px-2 py-2 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div>
-                                        <div class="text-sm font-medium text-gray-900">{{ $item->celular }}</div>
-                                        <div class="text-sm text-gray-500">{{ $item->email }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ $item->personas->celular }}</div>
+                                        <div class="text-sm text-gray-500">{{ $item->personas->email }}</div>
                                     </div>
                                 </div>
                             </td>
                             {{-- <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                {{ \Carbon\Carbon::parse($item->fecha_nacimiento)->locale('es')->translatedFormat('d F, Y') }}
+                                {{ \Carbon\Carbon::parse($item->personas->fecha_nacimiento)->locale('es')->translatedFormat('d F, Y') }}
                             </td> --}}
                             <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                
                                 <div class="flex space-x-2">
-                                    @if ($modo == 'sacerdote')
-                                        <a href="{{ route('sacerdotes.create', ['persona_id' => $item->id]) }}" class="bg-cordes-blue text-white hover:bg-cordes-dark cursor-pointer px-2.5 py-1 rounded-2xl">
-                                            Asignar
-                                        </a>
-                                    @else
-                                        <a href="#" class="text-cordes-blue hover:text-cordes-dark cursor-pointer">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('personas.edit', $item->id) }}" class="text-gray-600 hover:text-gray-900 cursor-pointer">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button type="button" onclick="document.getElementById('confirmModal{{ $item->id }}').classList.remove('hidden')" class="text-red-600 hover:text-red-800 cursor-pointer">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        @include('partials.confirmar', [
-                                            'id' => 'confirmModal' . $item->id,
-                                            'action' => route('personas.destroy', $item->id),
-                                            'method' => 'DELETE',
-                                            'title' => 'Eliminar persona',
-                                            'message' => '¿Estás seguro de eliminar a ' . $item->nombres . '?',
-                                            'buttonText' => 'Eliminar'
-                                        ])
-                                    @endif
+                                    <a href="#" class="text-cordes-blue hover:text-cordes-dark cursor-pointer">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('sacerdotes.edit', $item->id) }}" class="text-gray-600 hover:text-gray-900 cursor-pointer">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" onclick="document.getElementById('confirmModal{{ $item->id }}').classList.remove('hidden')" class="text-red-600 hover:text-red-800 cursor-pointer">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @include('partials.confirmar', [
+                                        'id' => 'confirmModal' . $item->id,
+                                        'action' => route('sacerdotes.destroy', $item->id),
+                                        'method' => 'DELETE',
+                                        'title' => 'Eliminar Sacerdote',
+                                        'message' => '¿Estás seguro de eliminar a ' . $item->personas->nombres . '?',
+                                        'buttonText' => 'Eliminar'
+                                    ])
+
+                                    
                                 </div>
                             </td>
                         </tr>
@@ -98,7 +93,7 @@
                             
                     </table>
                         <div class="pl-4 mr-4">
-                            {{ $personas->links() }}
+                            {{ $sacerdote->links() }}
                         </div>
                 </div>
         </div>
@@ -107,12 +102,12 @@
             <div class="bg-cordes-blue p-0.5"></div>
             <h1 class="text-gray-800 pl-4 pb-2">Estadisticas</h1>
             <div class="ml-2 mb-2 inline-flex items-center bg-green-100 text-green-800 text-xs font-semibold rounded-full overflow-hidden">
-                <div class="px-3 py-1 bg-green-200">Total de personas</div>
+                <div class="px-3 py-1 bg-green-200">Total de Sacerdotes</div>
                 <div class="px-3 py-1">{{ $total }}</div>
             </div>
             <br>
             <div class="ml-2 mb-2 inline-flex items-center bg-green-100 text-green-800 text-xs font-semibold rounded-full overflow-hidden">
-                <div class="px-3 py-1 bg-green-200">Primera infancia</div>
+                <div class="px-3 py-1 bg-green-200">[0 a 3]</div>
                 <div class="px-3 py-1">20</div>
             </div>
             <br>

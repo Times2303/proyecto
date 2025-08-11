@@ -13,25 +13,22 @@ class PersonasController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $webController;
+
+    public function __construct()
+    {
+        $this->webController = new WebController();
+    }
+
     public function index()
     {
+        $modo = 'personas';
         $buscar = request('buscar');
-
         $tiposidentificaciones = TiposIdentificacion::all();
         $nacionalidades = Nacionalidad::all();
-        $personas = Personas::with('tipos_identificacion')
-        ->when($buscar, function ($query, $buscar) {
-            $query->where(function ($q) use ($buscar) {
-                $q->where('nombres', 'like', "%$buscar%")
-                    ->orWhere('apellido1', 'like', "%$buscar%")
-                    ->orWhere('apellido2', 'like', "%$buscar%")
-                    ->orWhere('num_identificacion', 'like', "%$buscar%");
-            });
-        })
-        ->paginate(10);
-
+        $personas = $this->webController->obtenerPersonasFiltradas($buscar);
         $total = DB::select('select fn_total_personas() as total')[0]->total;
-        return view('modules.personas.InicioPersonas', compact('tiposidentificaciones', 'nacionalidades', 'personas', 'total'));
+        return view('modules.personas.InicioPersonas', compact('tiposidentificaciones', 'nacionalidades', 'personas', 'total', 'modo'));
     }
 
     /**
@@ -64,14 +61,7 @@ class PersonasController extends Controller
             ]);
             return redirect()->route('personas.index')->with('success', 'Se creó correctamente.');
         } catch (\Throwable $th) {
-            $mensaje = $th->getMessage();
-
-            // Buscar si hay un mensaje SQLSTATE
-            if (str_contains($mensaje, 'SQLSTATE')) {
-                // Extrae solo el mensaje del trigger, antes de "(Connection:"
-                preg_match('/\d{4} (.+?) \(Connection:/', $mensaje, $coincidencias);
-                $mensaje = $coincidencias[1] ?? 'Ocurrió un error.';
-            }
+            $mensaje = $this->webController->formatearError($th->getMessage());
 
             return redirect()->back()
                 ->withInput()
@@ -120,14 +110,7 @@ class PersonasController extends Controller
             ]);
             return redirect()->route('personas.index')->with('success', 'Se actualizó correctamente.');
         } catch (\Throwable $th) {
-            $mensaje = $th->getMessage();
-
-            // Buscar si hay un mensaje SQLSTATE
-            if (str_contains($mensaje, 'SQLSTATE')) {
-                // Extrae solo el mensaje del trigger, antes de "(Connection:"
-                preg_match('/\d{4} (.+?) \(Connection:/', $mensaje, $coincidencias);
-                $mensaje = $coincidencias[1] ?? 'Ocurrió un error.';
-            }
+            $mensaje = $this->webController->formatearError($th->getMessage());
 
             return redirect()->back()
                 ->withInput()

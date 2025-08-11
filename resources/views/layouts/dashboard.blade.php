@@ -31,11 +31,11 @@
                     <i class="fas fa-users mr-3 text-gray-400 group-hover:text-white"></i>
                     Personas
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                <a href="{{ route('sacerdotes.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
                     <i class="fas fa-user-nurse mr-3 text-gray-400 group-hover:text-white"></i>
                     sacerdotes
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
+                <a href="{{ route('parroquias.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-colors group">
                     <i class="fas fa-place-of-worship mr-3 text-gray-400 group-hover:text-white"></i>
                     Parroquias
                 </a>
@@ -66,7 +66,7 @@
     <!-- Main Content -->
     <div class="ml-64">
         <!-- Top Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200">
+        <header class="bg-white shadow-sm border-b border-gray-200 w-full">
             <div class="px-6 py-4">
                 <div class="flex items-center justify-between">
                     <div>

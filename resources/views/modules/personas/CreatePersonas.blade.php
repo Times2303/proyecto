@@ -2,7 +2,8 @@
 @vite('resources/js/form.js')
 @section('contenido')
 {{--Form con pasos--}}
-<div class="container mx-auto p-4 flex justify-center">
+<div class="fixed inset-0 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="container mx-auto p-4 flex justify-center">
     <div class="bg-white rounded-lg shadow-lg p-2 md:p-4 w-4xl">
         <a href="{{ route('personas.index') }}" class="text-blue-500 hover:underline mb-4"><i class="fa-solid fa-arrow-left"></i> Volver</a>
         <h1 class="text-3xl font-bold text-center mb-4">Registrar nueva persona</h1>
@@ -32,7 +33,7 @@
             @csrf
             <!-- Step 1 -->
             <div id="step-1" class="step grid grid-cols-[30%_67%] gap-4">
-                <div class="">
+                <div>
                     <div class="mb-6">
                     <label for="tipo_documento" class="block mb-2 text-sm font-medium text-gray-900">Tipo de documento de identidad</label>
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" id="tipo_identificacion" name="tipo_identificacion">
@@ -66,7 +67,7 @@
                         <input value="{{ old('fecha_nacimiento') }}" type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
                     </div>
                 </div>
-                <div class="space-y-4">
+                <div>
                     <div class="mb-6">
                         <label for="nombres" class="block mb-2 text-sm font-medium text-gray-900">Nombres</label>
                         <input value="{{ old('nombres') }}" type="text" id="nombres" name="nombres" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
@@ -108,6 +109,8 @@
         </form>
     </div>
 </div>
+</div>
+
 
 
 {{-- Form simple 
