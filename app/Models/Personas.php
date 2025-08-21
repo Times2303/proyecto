@@ -20,6 +20,10 @@ public function nacionalidad()
 
 public function sacerdotes()
 {
-    return $this->hasMany(Sacerdotes::class, 'personas_id');
+    return $this->hasOne(Sacerdotes::class, 'personas_id');
+}
+public function comprobante()
+{
+    return $this->hasMany(Comprobantes::class, 'personas_id');
 }
 }

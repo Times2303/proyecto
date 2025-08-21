@@ -20,4 +20,9 @@ class Sacerdotes extends Model
         return $this->belongsTo(Parroquias::class, 'parroquias_id');
     }
 
+    public function ceremonias()
+    {
+        return $this->hasMany(Ceremonias::class, 'sacerdotes_id');
+    }
+
 }

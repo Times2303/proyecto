@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\WebController;
 use App\Models\Jerarquias;
-use App\Models\Nacionalidad;
 use App\Models\Parroquias;
 use App\Models\Sacerdotes;
-use App\Models\Personas;
-use App\Models\TiposIdentificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

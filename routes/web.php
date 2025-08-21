@@ -3,6 +3,8 @@
 use App\Http\Controllers\ParroquiasController;
 use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\SacerdotesController;
+use App\Http\Controllers\CeremoniasController;
+use App\Http\Controllers\ComprobantesController;
 use Illuminate\Support\Facades\Route;
 
 // Ruta principal
@@ -34,3 +36,20 @@ Route::post('/parroquias/store', [ParroquiasController::class, 'store'])->name('
 Route::get('/parroquias/{parroquia}/edit', [ParroquiasController::class, 'edit'])->name('parroquias.edit');
 Route::put('/parroquias/{parroquia}', [ParroquiasController::class, 'update'])->name('parroquias.update');
 Route::delete('/parroquias/{parroquia}', [ParroquiasController::class, 'destroy'])->name('parroquias.destroy');
+
+// Rutas para CEREMONIAS
+Route::get('/ceremonias', [CeremoniasController::class, 'index'])->name('ceremonias.index');
+Route::get('/ceremonias/create', [CeremoniasController::class, 'create'])->name('ceremonias.create');
+Route::post('/ceremonias/store', [CeremoniasController::class, 'store'])->name('ceremonias.store');
+Route::get('/ceremonias/{ceremonia}/edit', [CeremoniasController::class, 'edit'])->name('ceremonias.edit');
+Route::put('/ceremonias/{ceremonia}', [CeremoniasController::class, 'update'])->name('ceremonias.update');
+Route::delete('/ceremonias/{ceremonia}', [CeremoniasController::class, 'destroy'])->name('ceremonias.destroy');
+
+// rutas para Comprobantes
+Route::get('/comprobantes', [ComprobantesController::class, 'index'])->name('comprobantes.index');
+Route::get('/comprobantes/seleccionar', [ComprobantesController::class, 'seleccionar'])->name('comprobantes.seleccionar');
+Route::get('/comprobantes/create', [ComprobantesController::class, 'create'])->name('comprobantes.create');
+Route::post('/comprobantes/store', [ComprobantesController::class, 'store'])->name('comprobantes.store');
+Route::get('/comprobantes/{comprobante}/edit', [ComprobantesController::class, 'edit'])->name('comprobantes.edit');
+Route::put('/comprobantes/{comprobante}', [ComprobantesController::class, 'update'])->name('comprobantes.update');
+Route::delete('/comprobantes/{comprobante}', [ComprobantesController::class, 'destroy'])->name('comprobantes.destroy');
